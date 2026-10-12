@@ -1,45 +1,65 @@
-# Kai — AI Research Portfolio
+# khalee2307.github.io
 
-English single-page portfolio for Le Nhat Kha (Kai), with light and dark themes. Personal facts and links come from `kai.tex`.
+Personal portfolio of **Le Nhat Kha (Kai)**, AI Research Engineer.
 
-## View locally
+**Live site:** https://khalee2307.github.io
 
-Open `index.html` in your browser, or serve this directory:
+A single-page static site covering research, experience, education, skills, and contact details. It has light and dark themes and a print-friendly résumé layout. There is no framework and no build step.
 
-```bash
-python3 -m http.server 8000 --bind 127.0.0.1
+## Features
+
+- Light/dark theme follows the system setting and remembers a manual choice.
+- Responsive layout with a mobile navigation menu (keyboard accessible, closes on Escape).
+- Print stylesheet: the browser's Print action produces a résumé-style page.
+- Respects `prefers-reduced-motion`; core content works without JavaScript.
+
+## Project structure
+
+```
+.
+├── index.html               # Page content, metadata, early theme selection
+├── styles.css               # Layout, color tokens (light/dark), print styles
+├── script.js                # Theme toggle and mobile navigation
+├── tests/interactions.cjs   # Dependency-free interaction tests (Node)
+└── .nojekyll                # Serve files as-is on GitHub Pages
 ```
 
-Then visit http://127.0.0.1:8000. No dependency installation or build is required. Google Fonts is optional: offline browsers use Arial fallbacks.
+## Run locally
 
-## Files
+```bash
+git clone git@github.com:KhaLee2307/khalee2307.github.io.git
+cd khalee2307.github.io
+python3 -m http.server 8000
+```
 
-- `index.html`: profile content, section anchors, metadata, and early theme selection.
-- `styles.css`: responsive layout, semantic light/dark colors, reduced motion, and print layout.
-- `script.js`: persistent theme selection and mobile navigation.
-- `tests/interactions.cjs`: dependency-free interaction checks using Node's VM with a small browser-environment stub.
+Then open http://localhost:8000. You can also open `index.html` directly in a browser.
 
-Edit profile text and links in `index.html`; adjust colors in the CSS root tokens. The theme follows the system preference until the visitor explicitly selects a theme. Storage failures do not stop switching. Without JavaScript, navigation stays visible and the system theme is applied by CSS.
+## Tests
 
-The standard browser Print action produces a resume-style view of the substantive content. The site does not claim a downloadable PDF or public URLs for private projects.
-
-## Verification
+Requires Node.js 18+.
 
 ```bash
 node --check script.js
 node tests/interactions.cjs
 ```
 
-Interaction checks cover system preference, stored preference, persistence, denied storage, preference changes, mobile menu selection, and Escape focus handling. HTML parser checks verified unique IDs, heading hierarchy, internal anchors, supplied external URLs, and safe new-tab links. Calculated normal-text contrast is at least 4.5:1 for foreground, muted text, and accents on the defined surfaces in both themes.
+The tests cover the system theme preference, saved preference, persistence, blocked storage, live preference changes, mobile menu selection, and Escape focus handling.
 
-In the development environment, Chromium launch and local HTTP socket creation were blocked by sandbox restrictions. Browser rendering, viewport/zoom checks, browser printing, and HTTP serving have **not** been verified. The interaction stub is not a substitute for real-browser QA. No hosted deployment was performed.
+## Editing
 
-## Supplementary public sources
+- **Content:** edit the text and links in `index.html`.
+- **Colors:** change the CSS custom properties in the `:root` blocks of `styles.css`.
 
-The research/work section also uses the owner-provided GitHub profile and repository READMEs, reviewed on 2026-10-11:
+## Deployment
 
-- https://github.com/KhaLee2307/StrDA — poster and slides links.
-- https://github.com/KhaLee2307/hand-pose-estimation — hand-pose project description.
-- https://github.com/KhaLee2307/image-retrieval — visual search project description.
+GitHub Pages serves the site from the `main` branch root. Each push to `main` redeploys it, usually within a minute or two.
 
-LinkedIn could not be fetched. Employment and education continue to follow `kai.tex`; its LinkedIn URL is preserved as explicitly supplied by the owner. No changing star counts or inferred authorship roles are displayed.
+## Links
+
+- GitHub: [@KhaLee2307](https://github.com/KhaLee2307)
+- LinkedIn: [kha-lee-cs-ai](https://www.linkedin.com/in/kha-lee-cs-ai/)
+- ORCID: [0009-0002-7820-134X](https://orcid.org/0009-0002-7820-134X)
+
+## License
+
+© Le Nhat Kha. All rights reserved.
