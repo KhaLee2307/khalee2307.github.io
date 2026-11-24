@@ -4,13 +4,15 @@ Personal portfolio of **Le Nhat Kha (Kai)**, AI Research Engineer.
 
 **Live site:** https://khalee2307.github.io
 
-A single-page static site covering research, experience, education, skills, and contact details. It has light and dark themes and a print-friendly résumé layout. There is no framework and no build step.
+A single-page static site ordered for a quick read: key facts first, then a journey chart, research and work, education, skills, and contact. It has light and dark themes and a print-friendly résumé layout. There is no framework and no build step.
 
 ## Features
 
 - Light/dark theme follows the system setting and remembers a manual choice.
 - Responsive layout with a mobile navigation menu (keyboard accessible, closes on Escape).
-- Print stylesheet: the browser's Print action produces a résumé-style page.
+- Journey chart: education, research, and industry roles on one timeline, drawn with HTML and CSS.
+- Expandable details on each role (native `<details>`), so the page stays short to scan.
+- Print stylesheet: the browser's Print action produces a three-page résumé with every detail expanded.
 - Respects `prefers-reduced-motion`; core content works without JavaScript.
 
 ## Project structure
@@ -19,8 +21,9 @@ A single-page static site covering research, experience, education, skills, and 
 .
 ├── index.html               # Page content, metadata, early theme selection
 ├── styles.css               # Layout, color tokens (light/dark), print styles
-├── script.js                # Theme toggle and mobile navigation
+├── script.js                # Theme toggle, mobile navigation, details expanded for print
 ├── tests/interactions.cjs   # Dependency-free interaction tests (Node)
+├── tests/structure.cjs      # Page structure and content rules (Node)
 └── .nojekyll                # Serve files as-is on GitHub Pages
 ```
 
@@ -41,13 +44,17 @@ Requires Node.js 18+.
 ```bash
 node --check script.js
 node tests/interactions.cjs
+node tests/structure.cjs
 ```
 
-The tests cover the system theme preference, saved preference, persistence, blocked storage, live preference changes, mobile menu selection, and Escape focus handling.
+`interactions.cjs` covers the system theme preference, saved preference, persistence, blocked storage, live preference changes, mobile menu selection, Escape focus handling, and expanding details for print.
+
+`structure.cjs` checks the section order, that the menu and every in-page link resolve, that each workplace and profile link appears once, the journey chart's dates, and that no text is smaller than 12px.
 
 ## Editing
 
 - **Content:** edit the text and links in `index.html`.
+- **Journey chart:** each bar carries `--s` and `--e`, month indexes on an axis where 0 is July 2020 (`(year − 2020) × 12 + (month − 7)`; `--e` is the last month plus one). Update `tests/structure.cjs` when the dates change.
 - **Colors:** change the CSS custom properties in the `:root` blocks of `styles.css`.
 
 ## Deployment

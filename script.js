@@ -28,4 +28,15 @@
   document.addEventListener('keydown', event => {
     if (event.key === 'Escape' && menuButton.getAttribute('aria-expanded') === 'true') { setMenu(false); menuButton.focus(); }
   });
+  // The printed résumé shows every collapsed detail; afterwards the page returns to how the reader left it.
+  let openedForPrint = [];
+  window.addEventListener('beforeprint', () => {
+    const closed = [...document.querySelectorAll('details')].filter(detail => !detail.open);
+    closed.forEach(detail => { detail.open = true; });
+    openedForPrint = openedForPrint.concat(closed);
+  });
+  window.addEventListener('afterprint', () => {
+    openedForPrint.forEach(detail => { detail.open = false; });
+    openedForPrint = [];
+  });
 })();
