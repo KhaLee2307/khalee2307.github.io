@@ -52,8 +52,10 @@ for (const s of ['Python', 'LangChain', 'Strands', '9.25', '1,000 applicants', '
 
 // 9. Journey chart: eight bars on the 78-month axis (index 0 = Jul 2020), each row with its dates as text.
 const bars = [...html.matchAll(/class="journey-bar"[^>]*style="--s:(\d+);--e:(\d+)"/g)].map(m => [Number(m[1]), Number(m[2])]);
-assert.deepEqual(bars, [[4, 47], [61, 62], [31, 49], [70, 78], [35, 38], [45, 49], [49, 70], [73, 78]], 'journey bars');
+assert.deepEqual(bars, [[4, 47], [61, 62], [31, 56], [70, 78], [35, 38], [45, 49], [49, 70], [73, 78]], 'journey bars');
 assert.equal(count(html, 'class="journey-dates"'), 8, 'journey rows show dates as text');
+assert.equal(count(html, 'Feb 2023 – Feb 2025'), 1, 'CORE Lab dates in the publication block');
+assert.match(html, /href="#role-core">[\s\S]{0,200}?<time datetime="2023-02">Feb 2023<\/time> – <time datetime="2025-02">Feb 2025<\/time>/, 'CORE Lab dates in the journey chart');
 assert.deepEqual([...html.matchAll(/class="journey-group" data-lane="([a-z]+)"/g)].map(m => m[1]), ['education', 'research', 'industry'], 'journey lanes');
 
 // 10. The page has no print button; the browser's own Print still gives the résumé layout.
